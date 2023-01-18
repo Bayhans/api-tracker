@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client'
 import ApiTracker from './ApiTracker'
 import DataProvider from './components/DataProvider'
 import './style.css'
-import 'leaflet/dist/leaflet.css';
 
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
