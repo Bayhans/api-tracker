@@ -8,7 +8,7 @@ import './style.css'
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <DataProvider>
-      <ApiTracker />
+      <ApiTracker/>
     </DataProvider>
-  </React.StrictMode>,
+  </React.StrictMode>
 )

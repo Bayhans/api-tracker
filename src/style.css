@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 @tailwind variants;
-@import 'leaflet/dist/leaflet.css';
 
 .custom-scrollbar::-webkit-scrollbar {
   width: 0.8rem;

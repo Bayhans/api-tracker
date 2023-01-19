@@ -1,29 +1,46 @@
+import 'leaflet/dist/leaflet.css';
 import React from 'react';
 import DataProvider, { SearchIpContext } from './components/DataProvider';
-
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 
 function ApiTracker() {
-	// State to store the user's search input
 	const [searchValue, setSearchValue] = React.useState('');
 
-	// Use the SearchIpContext to access the data and searchIp function from the DataProvider
 	const { data, searchIp } = React.useContext(SearchIpContext);
 	const { ip, location, timeZone, isp } = data;
+	const [map, setMap] = React.useState(null);
+	const [mapCenter, setMapCenter] = React.useState(
+		data.location ? [data.location.lat, data.location.lng] : [47.64343, -122.14318]
+	);
+	const [markerPosition, setMarkerPosition] = React.useState(
+		data.location ? [data.location.lat, data.location.lng] : [47.64343, -122.14318]
+	);
 
-	// Function to handle form submissions and call the searchIp function
 	const onDataRequest = (e: any) => {
 		e.preventDefault();
 		searchIp(searchValue);
-		setSearchValue(''); // reset the input field
+		setSearchValue('');
 	};
+	
+	React.useEffect(() => {
+		if(map && data.location) {
+		  map.setView([data.location.lat, data.location.lng], 15);
+		}
+	  }, [map, data.location]);
+
+	React.useEffect(() => {
+		if (data.location) {
+			setMarkerPosition([data.location.lat, data.location.lng]);
+			setMapCenter([data.location.lat, data.location.lng]);
+		}
+	}, [data]);
 
 	return (
-		<div className="w-screen h-screen flex flex-wrap justify-center p-36 text-3xl">
-			<h1 className="fixed top-10">IP Address Tracker</h1>
+		<div className="w-screen h-screen flex flex-wrap justify-center p-1 text-3xl">
+			<h1 className="fixed top-10 text-6xl">IP Address Tracker</h1>
 			<form onSubmit={onDataRequest}>
 				<input
-					placeholder="Search for any IP address or domain"
+					placeholder="Search for your IP address ?"
 					className="bg-gray-200 p-3 rounded-full"
 					value={searchValue}
 					onChange={(e) => setSearchValue(e.target.value)}
@@ -46,40 +63,26 @@ function ApiTracker() {
 				<p>AS Name: {data.as && data.as.name}</p>
 				<p>AS Domain: {data.as && data.as.domain}</p>
 			</div>
-			<div className="w-screen min-h-full">
-				<MapContainer
-					center={data.location ? [data.location.lat, data.location.lng] : [37.40599, -122.078514]}
-					zoom={13}
-					scrollWheelZoom={false}
-				>
-					<TileLayer
-						url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-						attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-					/>
-					{data.location && data.location.lat && data.location.lng && (
-						<Marker position={[data.location.lat, data.location.lng]}>
-							<Popup>
-								A pretty CSS3 popup. <br /> Easily customizable.
-							</Popup>
-						</Marker>
-					)}
-				</MapContainer>
-			</div>
+			<MapContainer
+				className="w-screen h-32 flex-1"
+				center={mapCenter}
+				zoom={15}
+				scrollWheelZoom={false}
+				ref={setMap}
+			>
+				<TileLayer
+					url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+					attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+				/>
+				<Marker position={markerPosition}>
+					<Popup>
+						A pretty CSS3 popup. <br /> Easily customizable.
+					</Popup>
+				</Marker>
+			</MapContainer>
 		</div>
 	);
 }
 
 export default ApiTracker;
-
-// center={data.location ? [data.location.lat, data.location.lng] : [47.64343, -122.14318]}
-
-// import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-
-// import { MapContainer } from 'react-leaflet';
-// import { TileLayer } from 'react-leaflet';
-// import { Marker } from 'react-leaflet';
-// import { Popup } from 'react-leaflet';
-
-// center={[data.location.lat, data.location.lng]} for the MapContainer
-// position={[data.location.lat, data.location.lng]} for the Marker
 

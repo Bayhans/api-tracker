@@ -7,8 +7,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        display: ["Prosto One", ...defaultTheme.fontFamily.sans],
-        chatFont: ["Raleway", ...defaultTheme.fontFamily.sans],
+        display: ["Heebo", ...defaultTheme.fontFamily.serif],
+        // sec-display: ["Times New Roman", ...defaultTheme.fontFamily.times],
       },
       gridAutoRows: {
         '2fr': 'minmax(0, 2fr)',
