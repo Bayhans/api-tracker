@@ -8,10 +8,10 @@ module.exports = {
     extend: {
       fontFamily: {
         display: ["Heebo", ...defaultTheme.fontFamily.serif],
-        // sec-display: ["Times New Roman", ...defaultTheme.fontFamily.times],
       },
-      gridAutoRows: {
-        '2fr': 'minmax(0, 2fr)',
+      colors:{
+        'very-dark-gray': 'hsl(0, 0%, 17%)',
+        'dark-gray': 'hsl(0, 0%, 59%)',
       },
       transition: {
         "transform": "all 0.2s ease",

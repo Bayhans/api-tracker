@@ -3,6 +3,12 @@
 @tailwind utilities;
 @tailwind variants;
 
+.bg-img {
+  background-image: url('../public/pattern-bg.png');
+  background-position: cover;
+  background-size:contain;
+}
+
 .custom-scrollbar::-webkit-scrollbar {
   width: 0.8rem;
 }
