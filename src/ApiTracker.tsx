@@ -46,21 +46,23 @@ function ApiTracker() {
 
 	return (
 		<div className="w-screen h-full flex flex-wrap justify-center p-1 text-3xl">
-			<h1 className="fixed top-10 text-6xl">IP Address Tracker</h1>
+			<div className="fixed top-10">
+			<h1 className="p-3 text-6xl">IP Address Tracker</h1>
 			<form onSubmit={onDataRequest}>
 				<input
 					placeholder="Search for your IP address ?"
-					className="bg-gray-200 p-3 rounded-full"
+					className="bg-gray-200 p-3 rounded-l-xl"
 					value={searchValue}
 					onChange={(e) => setSearchValue(e.target.value)}
 				/>
 				<button
 					type="submit"
-					className="bg-indigo-500 text-white p-3 rounded-full"
+					className="bg-black text-white p-3 rounded-r-xl"
 				>
 					Search
 				</button>
 			</form>
+			</div>
 			<div className="w-screen">
 				<p>IP ADRESS: {data.ip && data.ip}</p>
 				<p>Region: {data.location && data.location.region}</p>
