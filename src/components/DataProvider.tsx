@@ -2,10 +2,10 @@ import React from 'react';
 
 export const SearchIpContext = React.createContext({});
 
-const DataProvider = (props) => {
+const DataProvider = (props: any) => {
   const [data, setData] = React.useState({});
 
-  const searchIp = (ip) => {
+  const searchIp = (ip: string) => {
     fetch(
       `https://geo.ipify.org/api/v2/country,city?apiKey=at_LPC3vMggYIHq4V63POUnF9ZmcOt3q&ipAddress=` +
         `${ip}`

@@ -2,17 +2,22 @@ import 'leaflet/dist/leaflet.css';
 import React from 'react';
 import DataProvider, { SearchIpContext } from './components/DataProvider';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { LatLng } from 'leaflet';
 
 function ApiTracker() {
 	const [searchValue, setSearchValue] = React.useState('');
 
-	const { data, searchIp } = React.useContext(SearchIpContext);
-	const { ip, location, timeZone, isp } = data;
-	const [map, setMap] = React.useState(null);
-	const [mapCenter, setMapCenter] = React.useState(
+	const { data, searchIp } = React.useContext<any>(SearchIpContext);
+	const ip = data?.ip;
+	const location = data?.location;
+	const timeZone = data?.timeZone;
+	const isp = data?.isp;
+	
+	const [map, setMap] = React.useState<any>(null);
+	const [mapCenter, setMapCenter] = React.useState<any>(
 		data.location ? [data.location.lat, data.location.lng] : [47.64343, -122.14318]
 	);
-	const [markerPosition, setMarkerPosition] = React.useState(
+	const [markerPosition, setMarkerPosition] = React.useState<any> (
 		data.location ? [data.location.lat, data.location.lng] : [47.64343, -122.14318]
 	);
 
@@ -23,10 +28,14 @@ function ApiTracker() {
 	};
 	
 	React.useEffect(() => {
-		if(map && data.location) {
-		  map.setView([data.location.lat, data.location.lng], 15);
-		}
+		if (data?.location) {
+			if (map != null) {
+			map.setView([data.location.lat, data.location.lng], 15);
+			}
+		 }
+		 
 	  }, [map, data.location]);
+
 
 	React.useEffect(() => {
 		if (data.location) {
@@ -36,7 +45,7 @@ function ApiTracker() {
 	}, [data]);
 
 	return (
-		<div className="w-screen h-screen flex flex-wrap justify-center p-1 text-3xl">
+		<div className="w-screen h-full flex flex-wrap justify-center p-1 text-3xl">
 			<h1 className="fixed top-10 text-6xl">IP Address Tracker</h1>
 			<form onSubmit={onDataRequest}>
 				<input
@@ -64,7 +73,7 @@ function ApiTracker() {
 				<p>AS Domain: {data.as && data.as.domain}</p>
 			</div>
 			<MapContainer
-				className="w-screen h-32 flex-1"
+				className="w-screen min-h-screen flex-1"
 				center={mapCenter}
 				zoom={15}
 				scrollWheelZoom={false}
