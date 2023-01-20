@@ -28,7 +28,7 @@ function ApiTracker() {
 		iconAnchor: [20, 40], // point of the icon which will correspond to marker's location
 		popupAnchor: [0, -10] // point from which the popup should open relative to the iconAnchor
 	});
-	
+
 	const onDataRequest = (e: any) => {
 		e.preventDefault();
 		searchIp(searchValue);
@@ -51,57 +51,73 @@ function ApiTracker() {
 	}, [data]);
 
 	return (
-		<div className="bg-img w-screen h-full mx-auto flex flex-wrap justify-center md:bg-cover">
-			<h1 className="top-10 p-3 text-xl md:text-3xl text-white font-sans font-bold">IP Address Tracker</h1>
-			<div className="flex justify-center top-40 w-screen font-normal">
+		<div
+			className="bg-img bg-size-100 w-screen h-full mx-auto 
+							flex flex-wrap justify-center"
+		>
+			<h1 className="top-10 p-3 text-3xl text-white font-sans font-semibold">IP Address Tracker</h1>
+			<div className="flex justify-center top-38 w-screen font-normal">
 				<form
 					onSubmit={onDataRequest}
 					className="flex"
 				>
-				<input
-				placeholder="Search for your IP address ?"
-				className=" w-11/12 h-11 mb-5 mt-5 px-5 rounded-l-xl font-sans text-sm 
-							md:text-lg md:h-14 md:w-96"
-				value={searchValue}
-				onChange={(e) => setSearchValue(e.target.value)}
-				/>
+					<input
+						placeholder="Search for your IP address ?"
+						className=" w-64 md:w-96 h-14 mt-5 px-6 rounded-l-xl font-sans 
+							text-sm md:text-lg"
+						value={searchValue}
+						onChange={(e) => setSearchValue(e.target.value)}
+					/>
 
-				<button
-					type="submit"
-					className="bg-black h-11 md:h-14 px-4 ml-0 my-5 text-white font-mono font-bold text-lg md:text-2xl rounded-r-xl"
-				>
-					&gt;
-				</button>
+					<button
+						type="submit"
+						className="bg-black h-14 w-14 px-3 ml-0 my-5 text-white 
+								font-mono font-bold text-lg md:text-2xl rounded-r-xl"
+					>
+						&gt;
+					</button>
 				</form>
 			</div>
 
-			<div className="top-36 py-5 m-10 flex justify-center h-30 z-50 w-6/12 absolute
-							bg-white rounded-xl shadow-md overflow-hidden text-left"
-			>
-				<table >
-					<thead className="text-sm border-gray-200 text-dark-gray uppercase tracking-wider">
-						<tr>
-							<th className="px-5 ">IP Address</th>
-							<th className="px-5 border-l">Location</th>
-							<th className="px-5 border-l">Timezone</th>
-							<th className="px-5 border-l">ISP</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr className="text-2xl font-bold text-very-dark-gray">
-							<td className="px-5 ">{data.ip && data.ip}</td>
-							<td className="px-5 border-l">
-								{data.location && data.location.region ? `${data.location.region}, ` : ''}
-								{data.location && data.location.country}
-								{data.location && data.location.postalCode}
-							</td>
-							<td className="px-5 border-l">{data.location && data.location.timezone ? `UTC${data.location.timezone}` : ''}</td>
-							<td className="px-5 border-l ">
-								{data.isp && data.isp}
-							</td>
-						</tr>
-					</tbody>
-				</table>
+			<div className="top-36 p-5 m-5 flex flex-col md:flex-row justify-center h-1/2 md:h-32 z-50 w-80 md:w-8/12
+							bg-white rounded-xl shadow-md overflow-hidden text-left absolute">
+				<div className="flex flex-row row-span-1 flex-wrap justify-center w-full md:flex-col ">
+					<div className="text-sm text-dark-gray uppercase tracking-wider px-5 ">
+						IP Address
+					</div>
+					<div className="text-2xl font-bold text-very-dark-gray px-5 py-3">
+						{data.ip && data.ip}
+					</div>
+				</div>
+				<div className="flex flex-row row-span-2 flex-wrap justify-center w-full border-t md:flex-col 
+								md:border-t-0 md:border-l border-gray-200 ">
+					<div className="text-sm text-dark-gray uppercase tracking-wider px-5">
+						Location
+					</div>
+					<div className="text-2xl flex justify-center md:justify-start font-bold w-full text-very-dark-gray px-5 py-3">
+						{data.location && data.location.region ? `${data.location.region}, ` : ''}
+						{data.location && data.location.country}
+						{data.location && data.location.postalCode}
+					</div>
+				</div>
+				<div className="flex flex-row row-span-3 flex-wrap justify-center w-full md:flex-col 
+								border-t md:border-t-0 md:border-l border-gray-200 ">
+					<div className="text-sm text-dark-gray uppercase tracking-wider px-5">
+						Timezone
+					</div>
+					<div className="text-2xl flex justify-center md:justify-start font-bold w-full text-very-dark-gray px-5 py-3">
+						{data.location && data.location.timezone ? `UTC${data.location.timezone}` : ''}
+					</div>
+				</div>
+				<div className="flex flex-row row-span-4 flex-wrap justify-center w-full md:flex-col 
+								border-t md:border-t-0 md:border-l border-gray-200 ">
+					<div className="text-sm text-dark-gray uppercase tracking-wider px-5">
+						ISP
+					</div>
+					<div className="text-2xl flex justify-center md:justify-start font-bold w-full text-very-dark-gray px-5 py-3">
+						{data.isp && data.isp}
+					</div>
+				</div>
 			</div>
 
 			<div className="relative z-0 pt-20 ">
@@ -116,16 +132,19 @@ function ApiTracker() {
 						url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 						attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 					/>
-					<Marker position={markerPosition} icon={icon}>
+					<Marker
+						position={markerPosition}
+						icon={icon}
+					>
 						<Popup>
 							<span>
-							{data.ip && data.ip}
-							<br />
-							{data.location && data.location.country}
-							<br />
-							{data.location && data.location.timezone}
-							<br />
-							{data.isp && data.isp}
+								{data.ip && data.ip}
+								<br />
+								{data.location && data.location.country}
+								<br />
+								{data.location && data.location.timezone}
+								<br />
+								{data.isp && data.isp}
 							</span>
 						</Popup>
 					</Marker>
