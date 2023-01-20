@@ -8,12 +8,3 @@
   background-position: cover;
   background-size:contain;
 }
-
-.custom-scrollbar::-webkit-scrollbar {
-  width: 0.8rem;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: #a0aec0;
-  border-radius: 0.4rem;
-}

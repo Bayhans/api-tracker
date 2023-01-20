@@ -7,7 +7,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        display: ["Heebo", ...defaultTheme.fontFamily.serif],
+        display: ["Rubik", ...defaultTheme.fontFamily.serif],
       },
       colors:{
         'very-dark-gray': 'hsl(0, 0%, 17%)',
